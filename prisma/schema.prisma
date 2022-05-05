@@ -1,0 +1,84 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Donator {
+  id             String                 @id @default(auto()) @map("_id") @db.ObjectId
+  isActive       Boolean                @default(false)
+  name           String
+  email          String                 @unique
+  password       String
+  address        Address?
+  avatar_url     String?
+  bio            String?
+  interests      String[]
+  // TODO: MUDAR PARA ORGANIZATION
+  favorites      OrganizationDonators[]
+  social_network Social?
+
+  @@map("donator")
+}
+
+model Organization {
+  id             String                 @id @default(auto()) @map("_id") @db.ObjectId
+  name           String
+  representative String
+  email          String
+  logo           String
+  address        Address
+  // TODO: MUDAR PARA CAUSAS
+  causes         String?
+  tags           String[]
+  aiders         OrganizationDonators[]
+
+  // Causes Causes[]
+  // Donator Donator[]
+  @@map("organization")
+}
+
+// model Causes {
+//   id          String   @id @default(auto()) @map("_id") @db.ObjectId
+//   title       String
+//   description String
+//   start_date  DateTime @default(now())
+//   end_date    DateTime @default(now())
+//   href        String
+
+//   organization   Organization @relation(fields: [organizationId], references: [id])
+//   organizationId String       @db.ObjectId
+
+//   aiders Donator[]
+// }
+
+model OrganizationDonators {
+  id             String       @id @default(auto()) @map("_id") @db.ObjectId
+  Organization   Organization @relation(fields: [organizationId], references: [id])
+  organizationId String       @db.ObjectId
+  Donator        Donator      @relation(fields: [donatorId], references: [id])
+  donatorId      String       @db.ObjectId
+
+}
+
+type Social {
+  website   String?
+  facebook  String?
+  twitter   String?
+  instagram String?
+  linkedin  String?
+}
+
+type Address {
+  street  String
+  city    String
+  state   String
+  zip     String
+  country String
+}
