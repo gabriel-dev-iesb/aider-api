@@ -1,13 +1,13 @@
-import { Router } from "express";
-import { AuthenticateUserController } from "../module/account/authenticateUser/AuthenticateUserController";
-import { organizationsRoutes } from "./organizations.routes";
-import { usersRoutes } from "./users.routes";
+import { Router } from 'express';
+import { aidersRoutes } from './aiders.routes';
+import { organizationsRoutes } from './organizations.routes';
 
 const routes = Router();
-const authenticateUserController = new AuthenticateUserController();
+// const authenticateUserController = new AuthenticateUserController();
 
-routes.post("/auth", authenticateUserController.handle);
-routes.use("/users", usersRoutes);
-routes.use("/organizations", organizationsRoutes);
+// routes.post("/auth", authenticateUserController.handle);
+
+routes.use('/aiders', aidersRoutes);
+routes.use('/organizations', organizationsRoutes);
 
 export { routes };

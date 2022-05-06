@@ -1,16 +1,10 @@
-import { Router } from "express";
-import { CreateOrganizationController } from "../module/organization/useCases/createOrganization/CreateOrganizationController";
-import { FavoriteOrganizationController } from "../module/organization/useCases/favoriteOrganization/FavoriteOrganizationController";
+import { Router } from 'express';
+import { CreateOrganizationController } from '../module/organizations/useCases/createOrganization/CreateOrganizationController';
 
 const organizationsRoutes = Router();
 
 const createOrganizationController = new CreateOrganizationController();
-const favoriteOrganizationController = new FavoriteOrganizationController();
 
-organizationsRoutes.post("/", createOrganizationController.handle);
-organizationsRoutes.post(
-  "/favorite/:id",
-  favoriteOrganizationController.handle
-);
+organizationsRoutes.post('/create', createOrganizationController.handle);
 
 export { organizationsRoutes };

@@ -1,8 +1,8 @@
-import express, { NextFunction, Request, Response } from "express";
-import "express-async-errors";
-import { routes } from "./routes";
+import express, { NextFunction, Request, Response } from 'express';
+import 'express-async-errors';
+import { routes } from './routes';
 
-const PORT = process.env.PORT || 3333;
+const PORT = process.env.PORT || 4000;
 
 const app = express();
 app.use(express.json());
@@ -17,7 +17,7 @@ app.use(
 
     return response
       .status(500)
-      .json({ status: "error", message: "Internal Server Error" });
+      .json({ status: 'error', message: 'Internal Server Error' });
   }
 );
 
