@@ -13,7 +13,6 @@ class ListAiderByIdUseCase {
         isActive: true,
         avatar_url: true,
         bio: true,
-        address: true,
         social_network: true,
         interests: true,
       },

@@ -12,8 +12,8 @@ const createAiderController = new CreateAiderController();
 const updateAiderController = new UpdateAiderController();
 
 aidersRoutes.get('/', listAidersController.handle);
+aidersRoutes.get('/:id', listAiderById.handle);
 aidersRoutes.post('/create', createAiderController.handle);
 aidersRoutes.put('/:id', updateAiderController.handle);
-aidersRoutes.get('/:id', listAiderById.handle);
 
 export { aidersRoutes };

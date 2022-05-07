@@ -12,11 +12,9 @@ datasource db {
 
 model Aider {
   id             String               @id @default(auto()) @map("_id") @db.ObjectId
-  isActive       Boolean              @default(false)
   name           String
   email          String               @unique
   password       String
-  address        Address?
   avatar_url     String?
   bio            String?
   interests      String[]
@@ -37,25 +35,33 @@ model Organization {
   social_network Social?
   address        Address?
   // TODO: MUDAR PARA CAUSAS
-  causes         String?
+  causes         OrganizationCauses[]
   aiders         OrganizationAiders[]
 
   @@map("organization")
 }
 
-// model Causes {
-//   id          String   @id @default(auto()) @map("_id") @db.ObjectId
-//   title       String
-//   description String
-//   start_date  DateTime @default(now())
-//   end_date    DateTime @default(now())
-//   href        String
+model Causes {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  description String
+  start_date  DateTime @default(now())
+  end_date    DateTime @default(now())
+  href        String
 
-//   organization   Organization @relation(fields: [organizationId], references: [id])
-//   organizationId String       @db.ObjectId
+  organization OrganizationCauses[]
+  aiders       CausesAiders[]
 
-//   aiders Donator[]
-// }
+  @@map("causes")
+}
+
+model OrganizationCauses {
+  id             String        @id @default(auto()) @map("_id") @db.ObjectId
+  organization   Organization? @relation(fields: [organizationId], references: [id])
+  organizationId String?       @db.ObjectId
+  causes         Causes?       @relation(fields: [causesId], references: [id])
+  causesId       String?       @db.ObjectId
+}
 
 model OrganizationAiders {
   id             String       @id @default(auto()) @map("_id") @db.ObjectId
@@ -64,6 +70,12 @@ model OrganizationAiders {
   aider          Aider        @relation(fields: [aiderId], references: [id])
   aiderId        String       @db.ObjectId
 
+}
+
+model CausesAiders {
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  causes   Causes? @relation(fields: [causesId], references: [id])
+  causesId String? @db.ObjectId
 }
 
 type Social {
