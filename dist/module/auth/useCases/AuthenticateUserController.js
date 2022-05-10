@@ -36,38 +36,31 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.ListAiderByIdUseCase = void 0;
-var prismaClient_1 = require("../../../../database/prismaClient");
-var ListAiderByIdUseCase = /** @class */ (function () {
-    function ListAiderByIdUseCase() {
+exports.AuthenticateUserController = void 0;
+var AuthenticateUserUseCase_1 = require("./AuthenticateUserUseCase");
+var AuthenticateUserController = /** @class */ (function () {
+    function AuthenticateUserController() {
     }
-    ListAiderByIdUseCase.prototype.execute = function (id) {
+    AuthenticateUserController.prototype.handle = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
-            var aiders;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, prismaClient_1.prisma.aider.findFirst({
-                            where: {
-                                id: id
-                            },
-                            select: {
-                                id: true,
-                                name: true,
-                                email: true,
-                                avatar_url: true,
-                                bio: true,
-                                social_network: true,
-                                interests: true
-                            }
-                        })];
+            var _a, email, password, authenticateUserUseCase, result;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = request.body, email = _a.email, password = _a.password;
+                        authenticateUserUseCase = new AuthenticateUserUseCase_1.AuthenticateUserUseCase();
+                        return [4 /*yield*/, authenticateUserUseCase.execute({
+                                email: email,
+                                password: password
+                            })];
                     case 1:
-                        aiders = _a.sent();
-                        return [2 /*return*/, aiders];
+                        result = _b.sent();
+                        return [2 /*return*/, response.json(result)];
                 }
             });
         });
     };
-    return ListAiderByIdUseCase;
+    return AuthenticateUserController;
 }());
-exports.ListAiderByIdUseCase = ListAiderByIdUseCase;
-//# sourceMappingURL=ListAiderByIdUseCase.js.map
+exports.AuthenticateUserController = AuthenticateUserController;
+//# sourceMappingURL=AuthenticateUserController.js.map

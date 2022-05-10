@@ -36,38 +36,49 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.ListAiderByIdUseCase = void 0;
-var prismaClient_1 = require("../../../../database/prismaClient");
-var ListAiderByIdUseCase = /** @class */ (function () {
-    function ListAiderByIdUseCase() {
+exports.AuthenticateUserUseCase = void 0;
+var bcrypt_1 = require("bcrypt");
+var jsonwebtoken_1 = require("jsonwebtoken");
+var prismaClient_1 = require("../../../database/prismaClient");
+var AuthenticateUserUseCase = /** @class */ (function () {
+    function AuthenticateUserUseCase() {
     }
-    ListAiderByIdUseCase.prototype.execute = function (id) {
+    AuthenticateUserUseCase.prototype.execute = function (_a) {
+        var email = _a.email, password = _a.password;
         return __awaiter(this, void 0, void 0, function () {
-            var aiders;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var aider, isPasswordValid, name, avatar_url, token;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0: return [4 /*yield*/, prismaClient_1.prisma.aider.findFirst({
                             where: {
-                                id: id
-                            },
-                            select: {
-                                id: true,
-                                name: true,
-                                email: true,
-                                avatar_url: true,
-                                bio: true,
-                                social_network: true,
-                                interests: true
+                                email: email
                             }
                         })];
                     case 1:
-                        aiders = _a.sent();
-                        return [2 /*return*/, aiders];
+                        aider = _b.sent();
+                        if (!aider) {
+                            throw new Error('Invalid email or password');
+                        }
+                        return [4 /*yield*/, (0, bcrypt_1.compare)(password, aider.password)];
+                    case 2:
+                        isPasswordValid = _b.sent();
+                        if (!isPasswordValid) {
+                            throw new Error('Invalid email or password');
+                        }
+                        name = aider.name, avatar_url = aider.avatar_url;
+                        if (!process.env.JWT_KEY) {
+                            throw new Error('Missing JWT_KEY environment variable');
+                        }
+                        token = (0, jsonwebtoken_1.sign)({ name: name, email: email, avatar_url: avatar_url }, process.env.JWT_KEY, {
+                            subject: aider.id,
+                            expiresIn: '1d'
+                        });
+                        return [2 /*return*/, token];
                 }
             });
         });
     };
-    return ListAiderByIdUseCase;
+    return AuthenticateUserUseCase;
 }());
-exports.ListAiderByIdUseCase = ListAiderByIdUseCase;
-//# sourceMappingURL=ListAiderByIdUseCase.js.map
+exports.AuthenticateUserUseCase = AuthenticateUserUseCase;
+//# sourceMappingURL=AuthenticateUserUseCase.js.map

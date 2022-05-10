@@ -1,0 +1,24 @@
+<p>
+	<br>
+</p>
+
+<p><img src="blob:https://froala.com/c5c89a1f-6720-4022-86a6-d18d0601361a" style="width: 300px;" class="fr-fic fr-dib"></p>
+
+<p style="text-align: center;"><span style="font-size: 24px;">BEM VINDO</span></p>
+
+<p style="text-align: center;">
+	<br>
+</p>
+
+<p style="text-align: left;">Ol&aacute;, ${user}, seja bem vindo ao aider!
+	<br>
+	<br>Agradecemos sua vontade de, assim como n&oacute;s, tornar o mundo um lugar melhor e mais acolhedor.
+	<br>
+	<br>Se voc&ecirc; est&aacute; recebendo este e-mail, significa que sua conta j&aacute; foi criada e est&aacute; tudo pronto para voc&ecirc; come&ccedil;ar a navegar em nosso app e encontrar ONGs e causas para ajudar.
+	<br>
+	<br>Caso voc&ecirc; n&atilde;o tenha feito o cadastro, ou n&atilde;o saiba o que &eacute; a <em>aider</em>, desconsidere esse e-mail (Ou ent&atilde;o venha nos conhecer em <a href="https://aider.com.br">https://aider-app.com.br</a>
+	<br>
+	<br>Qualquer d&uacute;vida, entre em contato conosco, atrav&eacute;s dos nossos canais de contato. Voc&ecirc; pode os encontrar em nosso site.
+	<br>
+	<br>
+</p>
